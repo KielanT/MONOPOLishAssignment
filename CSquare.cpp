@@ -17,7 +17,7 @@ string CSquare::GetSquareName()
 	return mSquareName; // Returns the square name
 }
 
-void CSquare::SetIsOwned(bool isOwned)
+void CSquare::SetIsOwned(bool isOwned, int group)
 {
 	mIsOwned = isOwned;
 }

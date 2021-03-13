@@ -37,6 +37,16 @@ float CFreeParking::GetPenalty(int diceRoll)
 	return 0.0f;
 }
 
+int CFreeParking::GetColourGroup()
+{
+	return 0;
+}
+
+bool CFreeParking::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CFreeParking& properties)
 {
 	inputStream >> properties.mSquareParking;

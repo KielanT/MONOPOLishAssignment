@@ -70,6 +70,16 @@ float CBonus::GetPenalty(int diceRoll)
 	return 0.0f;
 }
 
+int CBonus::GetColourGroup()
+{
+	return 0;
+}
+
+bool CBonus::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CBonus& properties)
 {
 	return inputStream;

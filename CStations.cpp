@@ -37,8 +37,19 @@ float CStations::GetPenalty(int diceRoll)
 	return 0.0f;
 }
 
+int CStations::GetColourGroup()
+{
+	return 0;
+}
+
+bool CStations::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CStations& properties)
 {
 	inputStream >> properties.mSquareStation;
+
 	return inputStream;
 }

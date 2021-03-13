@@ -58,7 +58,7 @@ void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherP
 	{
 		if (!squares[Player->GetPosition()]->GetIsOwned() && Player->GetMoney() > 0)
 		{
-			squares[Player->GetPosition()]->SetIsOwned(true);
+			squares[Player->GetPosition()]->SetIsOwned(true, squares[Player->GetPosition()]->GetColourGroup());
 			squares[Player->GetPosition()]->SetOwningPlayer(Player);
 
 			Player->SetMoney(Player->GetMoney() - squares[Player->GetPosition()]->GetSquareCost());
@@ -70,15 +70,25 @@ void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherP
 		/*output <player> pays <rent> */
 		if (squares[Player->GetPosition()]->GetIsOwned() && squares[Player->GetPosition()]->GetOwningPlayer() != Player)
 		{
-			OtherPlayer->SetMoney(OtherPlayer->GetMoney() + squares[Player->GetPosition()]->GetSquareRent()); // Pay rent to other player
-			Player->SetMoney(Player->GetMoney() - squares[Player->GetPosition()]->GetSquareRent()); // Minus rent from this player
-
+			
 			if (squares[Player->GetPosition()]->GetSquareType() == 3) // If landed on square then brought ticket
 			{
+				OtherPlayer->SetMoney(OtherPlayer->GetMoney() + 10.0f); 
+				Player->SetMoney(Player->GetMoney() - 10.0f);
 				cout << Player->GetName() << " pays " << mPOUND << "10 for ticket" << endl;
 			}
 			else
 			{
+				if (squares[Player->GetPosition()]->IsGroupOwned(squares[Player->GetPosition()]->GetColourGroup())) // Doubles the rent
+				{
+					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + (squares[Player->GetPosition()]->GetSquareRent() * 2)); // Pay rent to other player
+					Player->SetMoney(Player->GetMoney() - (squares[Player->GetPosition()]->GetSquareRent() * 2)); // Minus rent from this player
+				}
+				else
+				{
+					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + squares[Player->GetPosition()]->GetSquareRent()); // Pay rent to other player
+					Player->SetMoney(Player->GetMoney() - squares[Player->GetPosition()]->GetSquareRent()); // Minus rent from this player
+				}
 				cout << Player->GetName() << " pays " << mPOUND << squares[Player->GetPosition()]->GetSquareRent() << endl; // Output
 			}
 		}

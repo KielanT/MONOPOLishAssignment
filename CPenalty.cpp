@@ -67,6 +67,16 @@ float CPenalty::GetPenalty(int diceRoll)
 	return price;
 }
 
+int CPenalty::GetColourGroup()
+{
+	return 0;
+}
+
+bool CPenalty::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CPenalty& properties)
 {
 	return inputStream;

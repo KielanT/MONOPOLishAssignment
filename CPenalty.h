@@ -13,6 +13,8 @@ public:
 	float GetSquareRent() override;
 	float GetBonus(int diceRoll) override;
 	float GetPenalty(int diceRoll) override;
+	int GetColourGroup() override;
+	bool IsGroupOwned(int group) override;
 
 	friend istream& operator >> (istream& inputStream, CPenalty& properties);
 };

@@ -31,6 +31,16 @@ float CJail::GetPenalty(int diceRoll)
 	return 0.0f;
 }
 
+int CJail::GetColourGroup()
+{
+	return 0;
+}
+
+bool CJail::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CJail& properties)
 {
 	return inputStream;

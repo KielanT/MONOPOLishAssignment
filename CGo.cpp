@@ -31,6 +31,16 @@ float CGo::GetPenalty(int diceRoll)
 	return 0.0f;
 }
 
+int CGo::GetColourGroup()
+{
+	return 0;
+}
+
+bool CGo::IsGroupOwned(int group)
+{
+	return false;
+}
+
 istream& operator>>(istream& inputStream, CGo& properties)
 {
 	return inputStream;
