@@ -1,4 +1,38 @@
-﻿  Main.cpp
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Main.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(14,22): warning C4309: 'initializing': truncation of constant value
+﻿  CBonus.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CBonus.cpp(3,20): warning C4309: 'initializing': truncation of constant value
+  CFreeParking.cpp
+  CGo.cpp
+  CGoToJail.cpp
+  CJail.cpp
+  CPenalty.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CPenalty.cpp(3,20): warning C4309: 'initializing': truncation of constant value
+  CProperties.cpp
+  CSquare.cpp
+  CSquareFactory.cpp
+  CStations.cpp
+  Main.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Main.cpp(24,20): warning C4309: 'initializing': truncation of constant value
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xutility(138,73): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\memory(2186): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,const char(&)[4],int,int>(_Ty &,const char (&)[4],int &&,int &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=CPlayer
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\memory(2906): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
+          with
+          [
+              _Ty=CPlayer
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\memory(2907): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
+          with
+          [
+              _Ty=CPlayer
+          ]
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Main.cpp(77): message : see reference to function template instantiation 'std::shared_ptr<CPlayer> std::make_shared<CPlayer,const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
+  Generating Code...
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CSquareFactory.cpp(57): warning C4715: 'NewSquare': not all control paths return a value
   MONOPOLishAssignment.vcxproj -> C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Debug\MONOPOLishAssignment.exe
