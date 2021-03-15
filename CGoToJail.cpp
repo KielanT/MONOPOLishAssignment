@@ -47,6 +47,19 @@ bool CGoToJail::IsGroupOwned(int group)
 	return false;
 }
 
+void CGoToJail::AddOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+void CGoToJail::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+vector<shared_ptr<CSquare>> CGoToJail::GetOwnedList()
+{
+	return vector<shared_ptr<CSquare>>();
+}
+
 istream& operator>>(istream& inputStream, CGoToJail& properties)
 {
 	inputStream >> properties.mTo;

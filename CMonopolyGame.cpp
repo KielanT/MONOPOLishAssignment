@@ -1,39 +1,60 @@
 #include "CMonopolyGame.h"
+#include "CRandom.h"
+
 
 CMonopolyGame::CMonopolyGame()
 {
 	ReadSquaresFile(mFILE_SQUARES, pSquares);
+	mIsGame = true;
+	mPlayerWinner = "";
+	mIsPlayerOneBankrupt = false;
+	mIsPlayerTwoBankrupt = false;
+	mIsPlayerThreeBankrupt = false;
+	mIsPlayerFourBankrupt = false;
+	mBankruptAmount = 0;
 }
 
 void CMonopolyGame::Game()
 {
 	cout << "Welcome to Monopol-ish" << endl << endl; // Title Text
 
-	// Creates player sets the name, money and board position
-	shared_ptr<CPlayer> pPlayerOne = make_shared<CPlayer>("dog", 1500, 0);
-	shared_ptr<CPlayer> pPlayerTwo = make_shared<CPlayer>("car", 1500, 0);
 
-	srand((unsigned)time(0)); // Used for setting the seed for the random generator so that it gives a random number everytime 
+	srand(SetRandomSeed()); // Used for setting the seed for the random generator so that it gives a random number everytime 
 
-	for (int i = 1; i <= 20; ++i) // Runs the game for 20 rounds
+	while(mIsGame)
 	{
-		//cout << " Round " << i << endl; // Outputs the round
 		// Runs the round code, keeps the code neat
-		Round(pPlayerOne, pPlayerTwo, pSquares);
-		Round(pPlayerTwo, pPlayerOne, pSquares);
+		if (!mIsPlayerOneBankrupt)
+		{
+			Round(mPlayerOne, pSquares);
+		}
+		if (!mIsPlayerTwoBankrupt)
+		{
+			Round(mPlayerTwo, pSquares);
+		}
+		if (!mIsPlayerThreeBankrupt)
+		{
+			Round(mPlayerThree, pSquares);
+		}
+		if (!mIsPlayerFourBankrupt)
+		{
+			Round(mPlayerFour, pSquares);
+		}
 	}
 
-	GameOver(pPlayerOne, pPlayerTwo);
+	GameOver();
 }
 
-void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherPlayer, CSquareVector& squares)
+void CMonopolyGame::Round(shared_ptr<CPlayer> CurrentPlayer, CSquareVector& squares)
 {
+	shared_ptr<CPlayer> OtherPlayer;
+
 	//cout << " " << Player->GetName() << " Turn " << endl << endl; // Outputs the players turn
 
-	int dice = rand() % 6 + 1; // Sets dice to a random number between 1 and 6
-	cout << " " << Player->GetName() << " rolls " << dice << endl << endl; // Output the player and what the player has rolled
+	int dice = Random(); // Sets dice to a random number between 1 and 6
+	cout << " " << CurrentPlayer->GetName() << " rolls " << dice << endl << endl; // Output the player and what the player has rolled
 
-	int PreviousPosition = Player->GetPosition(); // Sets the previous position the player was on
+	int PreviousPosition = CurrentPlayer->GetPosition(); // Sets the previous position the player was on
 
 	// if statement that sets the position, if the player goes passed the last square then it resets the position of the index
 	if (PreviousPosition >= 20) // Checks if the Player is on square 20 or higher
@@ -41,127 +62,284 @@ void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherP
 		int temp = PreviousPosition + dice; // A temp variable used for checking if the index has gone to high
 		if (temp > 25) // If the temp variable is bigger than 25 then set the correct position and index
 		{
-			Player->SetPosition(temp - 26); // Sets the position correctly by calculating how much the index has gone over
+			CurrentPlayer->SetPosition(temp - 26); // Sets the position correctly by calculating how much the index has gone over
 		}
 	}
 	else
 	{
-		Player->SetPosition(Player->GetPosition() + dice); // Sets position if there is no need to check if the index has gone over the correct index count
+		CurrentPlayer->SetPosition(CurrentPlayer->GetPosition() + dice); // Sets position if there is no need to check if the index has gone over the correct index count
 	}
 
-	cout << " " << Player->GetName() << " lands on " << squares[Player->GetPosition()]->GetSquareName() << endl << endl; // Outputs the square the player has landed on
+	cout << " " << CurrentPlayer->GetName() << " lands on " << squares[CurrentPlayer->GetPosition()]->GetSquareName() << endl << endl; // Outputs the square the player has landed on
 
 	// If unowned player who lands on it buys it but only if they have a positive amount of money
 	// player becomes property owner
 	/*output <player> buys <square name> for <costs> */
-	if (squares[Player->GetPosition()]->GetSquareType() == 1 || squares[Player->GetPosition()]->GetSquareType() == 3)
+	if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 1 || squares[CurrentPlayer->GetPosition()]->GetSquareType() == 3)
 	{
-		if (!squares[Player->GetPosition()]->GetIsOwned() && Player->GetMoney() > 0)
+		if (!squares[CurrentPlayer->GetPosition()]->GetIsOwned() && CurrentPlayer->GetMoney() > 0)
 		{
-			squares[Player->GetPosition()]->SetIsOwned(true, squares[Player->GetPosition()]->GetColourGroup());
-			squares[Player->GetPosition()]->SetOwningPlayer(Player);
+			squares[CurrentPlayer->GetPosition()]->SetIsOwned(true, squares[CurrentPlayer->GetPosition()]->GetColourGroup());
+			squares[CurrentPlayer->GetPosition()]->SetOwningPlayer(CurrentPlayer);
 
-			Player->SetMoney(Player->GetMoney() - squares[Player->GetPosition()]->GetSquareCost());
-			cout << Player->GetName() + " buys " + squares[Player->GetPosition()]->GetSquareName() + " for " << squares[Player->GetPosition()]->GetSquareCost() << endl;
+			if (CurrentPlayer == mPlayerOne)
+			{
+				mPOneOwned.push_back(squares[CurrentPlayer->GetPosition()]);
+			}
+			else if (CurrentPlayer == mPlayerTwo)
+			{
+				mPTwoOwned.push_back(squares[CurrentPlayer->GetPosition()]);
+			}
+			else if (CurrentPlayer == mPlayerThree)
+			{
+				mPThreeOwned.push_back(squares[CurrentPlayer->GetPosition()]);
+			}
+			else if (CurrentPlayer == mPlayerFour)
+			{
+				mPFourOwned.push_back(squares[CurrentPlayer->GetPosition()]);
+			}
+			CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - squares[CurrentPlayer->GetPosition()]->GetSquareCost());
+			cout << CurrentPlayer->GetName() + " buys " + squares[CurrentPlayer->GetPosition()]->GetSquareName() + " for " << mPOUND << squares[CurrentPlayer->GetPosition()]->GetSquareCost() << endl;
+			cout << CurrentPlayer->GetName() << " pays " << mPOUND << squares[CurrentPlayer->GetPosition()]->GetSquareCost() << endl;
 		}
-
-		// If owned but the owner player lands on it nothing happens
-		// If owned but by another player then pay rent to the owner player (rent is deducted from the player who landed on it then added to the owners balance)
-		/*output <player> pays <rent> */
-		if (squares[Player->GetPosition()]->GetIsOwned() && squares[Player->GetPosition()]->GetOwningPlayer() != Player)
+		else if (squares[CurrentPlayer->GetPosition()]->GetIsOwned() && squares[CurrentPlayer->GetPosition()]->GetOwningPlayer() != CurrentPlayer)
 		{
-			
-			if (squares[Player->GetPosition()]->GetSquareType() == 3) // If landed on square then brought ticket
+			OtherPlayer = squares[CurrentPlayer->GetPosition()]->GetOwningPlayer();
+			// If owned but the owner player lands on it nothing happens
+			// If owned but by another player then pay rent to the owner player (rent is deducted from the player who landed on it then added to the owners balance)
+			/*output <player> pays <rent> */
+			if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 3) // If landed on square then brought ticket
 			{
 				OtherPlayer->SetMoney(OtherPlayer->GetMoney() + 10.0f); 
-				Player->SetMoney(Player->GetMoney() - 10.0f);
-				cout << Player->GetName() << " pays " << mPOUND << "10 for ticket" << endl;
+				CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - 10.0f);
+				cout << CurrentPlayer->GetName() << " pays " << mPOUND << "10 for ticket" << endl;
 			}
 			else
 			{
-				if (squares[Player->GetPosition()]->IsGroupOwned(squares[Player->GetPosition()]->GetColourGroup())) // Doubles the rent
+				if (squares[CurrentPlayer->GetPosition()]->IsGroupOwned(squares[CurrentPlayer->GetPosition()]->GetColourGroup())) // Doubles the rent
 				{
-					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + (squares[Player->GetPosition()]->GetSquareRent() * 2)); // Pay rent to other player
-					Player->SetMoney(Player->GetMoney() - (squares[Player->GetPosition()]->GetSquareRent() * 2)); // Minus rent from this player
+					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + (squares[CurrentPlayer->GetPosition()]->GetSquareRent() * 2)); // Pay rent to other player
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - (squares[CurrentPlayer->GetPosition()]->GetSquareRent() * 2)); // Minus rent from this player
 				}
 				else
 				{
-					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + squares[Player->GetPosition()]->GetSquareRent()); // Pay rent to other player
-					Player->SetMoney(Player->GetMoney() - squares[Player->GetPosition()]->GetSquareRent()); // Minus rent from this player
+					OtherPlayer->SetMoney(OtherPlayer->GetMoney() + squares[CurrentPlayer->GetPosition()]->GetSquareRent()); // Pay rent to other player
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - squares[CurrentPlayer->GetPosition()]->GetSquareRent()); // Minus rent from this player
 				}
-				cout << Player->GetName() << " pays " << mPOUND << squares[Player->GetPosition()]->GetSquareRent() << endl; // Output
+				cout << CurrentPlayer->GetName() << " pays " << mPOUND << squares[CurrentPlayer->GetPosition()]->GetSquareRent() << endl; // Output
 			}
 		}
 	}
-	else if (squares[Player->GetPosition()]->GetSquareType() == 6) // If player lands on jail, nothing happens but output
+	else if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 6) // If player lands on jail, nothing happens but output
 	{
-		cout << Player->GetName() << " lands on Jail" << endl;
+		cout << CurrentPlayer->GetName() << " lands on Jail" << endl;
 	}
-	else if (squares[Player->GetPosition()]->GetSquareType() == 7) // If player lands on go to jail then move to jail, pay 50 and output
+	else if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 7) // If player lands on go to jail then move to jail, pay 50 and output
 	{
-		Player->SetPosition(7); // Move to jail
-		Player->SetMoney(Player->GetMoney() - 50); // Pay 50
+		CurrentPlayer->SetPosition(7); // Move to jail
+		CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - 50); // Pay 50
 
 		// Output
-		cout << Player->GetName() << " lands on Go to Jail" << endl;
-		cout << Player->GetName() << " goes to Jail" << endl;
-		cout << Player->GetName() << " pays " << mPOUND << "50" << endl;
+		cout << CurrentPlayer->GetName() << " lands on Go to Jail" << endl;
+		cout << CurrentPlayer->GetName() << " goes to Jail" << endl;
+		cout << CurrentPlayer->GetName() << " pays " << mPOUND << "50" << endl;
 	}
-	else if (squares[Player->GetPosition()]->GetSquareType() == 8) // If player lands on Free parking then nothing happens, output
+	else if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 8) // If player lands on Free parking then nothing happens, output
 	{
-		cout << Player->GetName() << " is resting" << endl;
+		cout << CurrentPlayer->GetName() << " is resting" << endl;
 	}
-	else if (squares[Player->GetPosition()]->GetSquareType() == 4) // If lands on bonus roll again and make the player take a bonus
+	else if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 4) // If lands on bonus roll again and make the player take a bonus
 	{
-		int rollDiceAgain = rand() % 6 + 1; // Sets dice to a random number between 1 and 6
+		int rollDiceAgain = Random(); // Sets dice to a random number between 1 and 6
 
-		float BonusPrice = squares[Player->GetPosition()]->GetBonus(rollDiceAgain);
-		Player->SetMoney(Player->GetMoney() + BonusPrice);
+		float BonusPrice = squares[CurrentPlayer->GetPosition()]->GetBonus(rollDiceAgain);
+		CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + BonusPrice);
 	}
-	else if (squares[Player->GetPosition()]->GetSquareType() == 5) // If lands on penalty roll again and make the player take a penalty
+	else if (squares[CurrentPlayer->GetPosition()]->GetSquareType() == 5) // If lands on penalty roll again and make the player take a penalty
 	{
-		int rollDiceAgain = rand() % 6 + 1; // Sets dice to a random number between 1 and 6
+		int rollDiceAgain = Random(); // Sets dice to a random number between 1 and 6
 
-		float penaltyPrice = squares[Player->GetPosition()]->GetPenalty(rollDiceAgain);
-		Player->SetMoney(Player->GetMoney() - penaltyPrice);
-	}
-
-	if (PreviousPosition >= 20 && Player->GetPosition() <= 6) // Checks if the player has gone passed index 0 
-	{
-		cout << " " << Player->GetName() << " passes GO and collects " << mPOUND << "200" << endl << endl; // Outputs the player has passed go and collected 200
-		Player->SetMoney(Player->GetMoney() + 200); // Adds £200 to the players money
+		float penaltyPrice = squares[CurrentPlayer->GetPosition()]->GetPenalty(rollDiceAgain);
+		CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() - penaltyPrice);
 	}
 
-	cout << Player->GetName() << " has " << mPOUND << Player->GetMoney() << endl << endl;
+
+	// Mortgage one or more properties until their balance rises above zero
+	// Properties should be in value order starting with the lowest valued property first
+	// When a property is mortgaged the player is lent the original value of the property
+	if (CurrentPlayer == mPlayerOne)
+	{
+		sort(mPOneOwned.begin(), mPOneOwned.end()); // Sorts lowest to highest
+		if (CurrentPlayer->GetMoney() <= 0.0f)
+		{
+			for (auto i = 0; i < mPOneOwned.size(); ++i)
+			{
+				if (mPOneOwned[i]->GetOwningPlayer() == CurrentPlayer)
+				{
+					//owned[i]->SetIsOwned(false, owned[i]->GetColourGroup());
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + mPOneOwned[i]->GetSquareCost());
+					//owned[i]->RemoveOwnedList(owned[i]);
+
+					cout << CurrentPlayer->GetName() << " Mortgages " << mPOneOwned[i]->GetSquareName() << " for " << mPOUND << mPOneOwned[i]->GetSquareCost() << endl;
+				}
+				if (CurrentPlayer->GetMoney() > 0)
+				{
+					break;
+				}
+			}
+		}
+	}
+	else if (CurrentPlayer == mPlayerTwo)
+	{
+		sort(mPTwoOwned.begin(), mPTwoOwned.end()); // Sorts lowest to highest
+		if (CurrentPlayer->GetMoney() <= 0.0f)
+		{
+			for (auto i = 0; i < mPTwoOwned.size(); ++i)
+			{
+				if (mPTwoOwned[i]->GetOwningPlayer() == CurrentPlayer)
+				{
+					//owned[i]->SetIsOwned(false, owned[i]->GetColourGroup());
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + mPTwoOwned[i]->GetSquareCost());
+					//owned[i]->RemoveOwnedList(owned[i]);
+
+					cout << CurrentPlayer->GetName() << " Mortgages " << mPTwoOwned[i]->GetSquareName() << " for " << mPOUND << mPTwoOwned[i]->GetSquareCost() << endl;
+				}
+				if (CurrentPlayer->GetMoney() > 0)
+				{
+					break;
+				}
+			}
+		}
+	}
+	else if (CurrentPlayer == mPlayerThree)
+	{
+		sort(mPThreeOwned.begin(), mPThreeOwned.end()); // Sorts lowest to highest
+		if (CurrentPlayer->GetMoney() <= 0.0f)
+		{
+			for (auto i = 0; i < mPThreeOwned.size(); ++i)
+			{
+				if (mPThreeOwned[i]->GetOwningPlayer() == CurrentPlayer)
+				{
+					//owned[i]->SetIsOwned(false, owned[i]->GetColourGroup());
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + mPThreeOwned[i]->GetSquareCost());
+					//owned[i]->RemoveOwnedList(owned[i]);
+
+					cout << CurrentPlayer->GetName() << " Mortgages " << mPThreeOwned[i]->GetSquareName() << " for " << mPOUND << mPThreeOwned[i]->GetSquareCost() << endl;
+				}
+				if (CurrentPlayer->GetMoney() > 0)
+				{
+					break;
+				}
+			}
+		}
+	}
+	else if (CurrentPlayer == mPlayerFour)
+	{
+		sort(mPFourOwned.begin(), mPFourOwned.end()); // Sorts lowest to highest
+		if (CurrentPlayer->GetMoney() <= 0.0f)
+		{
+			for (auto i = 0; i < mPFourOwned.size(); ++i)
+			{
+				if (mPFourOwned[i]->GetOwningPlayer() == CurrentPlayer)
+				{
+					//owned[i]->SetIsOwned(false, owned[i]->GetColourGroup());
+					CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + mPFourOwned[i]->GetSquareCost());
+					//owned[i]->RemoveOwnedList(owned[i]);
+
+					cout << CurrentPlayer->GetName() << " Mortgages " << mPFourOwned[i]->GetSquareName() << " for " << mPOUND << mPFourOwned[i]->GetSquareCost() << endl;
+				}
+				if (CurrentPlayer->GetMoney() > 0)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+
+	if (CurrentPlayer->GetMoney() <= 0.0f)
+	{
+		// Bankrupt lose game
+		if (CurrentPlayer == mPlayerOne)
+		{
+			mIsPlayerOneBankrupt = true;
+		}
+		else if (CurrentPlayer == mPlayerTwo)
+		{
+			mIsPlayerTwoBankrupt = true;
+		}
+		else if (CurrentPlayer == mPlayerThree)
+		{
+			mIsPlayerThreeBankrupt = true;
+		}
+		else if (CurrentPlayer == mPlayerFour)
+		{
+			mIsPlayerFourBankrupt = true;
+		}
+		mBankruptAmount++;
+	}
+
+	if (mBankruptAmount == 3)
+	{
+		mIsGame = false;
+	}
+
+	if (PreviousPosition >= 20 && CurrentPlayer->GetPosition() <= 6) // Checks if the player has gone passed index 0 
+	{
+		cout << " " << CurrentPlayer->GetName() << " passes GO and collects " << mPOUND << "200" << endl << endl; // Outputs the player has passed go and collected 200
+		CurrentPlayer->SetMoney(CurrentPlayer->GetMoney() + 200); // Adds £200 to the players money
+	}
+
+	
+
+	cout << CurrentPlayer->GetName() << " has " << mPOUND << CurrentPlayer->GetMoney() << endl << endl;
 
 	cout << " ------------------------------------------------------------ " << endl << endl; // Round divider
 }
 
-void CMonopolyGame::GameOver(shared_ptr<CPlayer> PlayerOne, shared_ptr<CPlayer> PlayerTwo)
+void CMonopolyGame::GameOver()
 {
 	cout << "Game Over" << endl; // Game Over Text
 		// Outputs the players name and the amount of money they have after the game
-	cout << PlayerOne->GetName() << " has " << mPOUND << PlayerOne->GetMoney() << endl;
-	cout << PlayerTwo->GetName() << " has " << mPOUND << PlayerTwo->GetMoney() << endl;
+	cout << mPlayerOne->GetName() << " has " << mPOUND << mPlayerOne->GetMoney() << endl;
+	cout << mPlayerTwo->GetName() << " has " << mPOUND << mPlayerTwo->GetMoney() << endl;
+	cout << mPlayerThree->GetName() << " has " << mPOUND << mPlayerTwo->GetMoney() << endl;
+	cout << mPlayerFour->GetName() << " has " << mPOUND << mPlayerTwo->GetMoney() << endl;
 
-	if (PlayerOne->GetMoney() > PlayerTwo->GetMoney()) // If player one has more money than player two, player one wins
+	//if (PlayerOne->GetMoney() > PlayerTwo->GetMoney()) // If player one has more money than player two, player one wins
+	//{
+	//	cout << PlayerOne->GetName() << " wins." << endl;
+	//}
+	//else if (PlayerOne->GetMoney() < PlayerTwo->GetMoney()) // If player two has more money than player one, player two wins
+	//{
+	//	cout << PlayerTwo->GetName() << " wins." << endl;
+	//}
+	//else
+	//{
+	//	cout << "draw." << endl; // If players have the same amount of money then there is a draw
+	//}
+
+	if (!mIsPlayerOneBankrupt)
 	{
-		cout << PlayerOne->GetName() << " wins." << endl;
+		cout << mPlayerOne << " wins." << endl;
 	}
-	else if (PlayerOne->GetMoney() < PlayerTwo->GetMoney()) // If player two has more money than player one, player two wins
+	else if (!mIsPlayerTwoBankrupt)
 	{
-		cout << PlayerTwo->GetName() << " wins." << endl;
+		cout << mPlayerTwo << " wins." << endl;
 	}
-	else
+	else if (!mIsPlayerThreeBankrupt)
 	{
-		cout << "draw." << endl; // If players have the same amount of money then there is a draw
+		cout << mPlayerThree << " wins." << endl;
+	}
+	else if (!mIsPlayerFourBankrupt)
+	{
+		cout << mPlayerFour << " wins." << endl;
 	}
 }
 
 void CMonopolyGame::ReadSquaresFile(string fileName, CSquareVector& squares)
 {
 	ifstream file; // Creates if stream object, used for storing file and using the file
-	string line; // Used for storing each line of the file
 
 	file.open(fileName); // Opens file to be read 
 	if (!file) // Throws an error if the file isn't found

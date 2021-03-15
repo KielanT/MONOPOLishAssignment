@@ -80,6 +80,19 @@ bool CBonus::IsGroupOwned(int group)
 	return false;
 }
 
+void CBonus::AddOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+void CBonus::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+vector<shared_ptr<CSquare>> CBonus::GetOwnedList()
+{
+	return vector<shared_ptr<CSquare>>();
+}
+
 istream& operator>>(istream& inputStream, CBonus& properties)
 {
 	return inputStream;

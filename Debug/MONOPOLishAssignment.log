@@ -1,11 +1,9 @@
-﻿  CBonus.cpp
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CBonus.cpp(3,20): warning C4309: 'initializing': truncation of constant value
-  CFreeParking.cpp
-  CGo.cpp
-  CGoToJail.cpp
-  CJail.cpp
-  CMonopolyGame.cpp
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(14,22): warning C4309: 'initializing': truncation of constant value
+﻿  CMonopolyGame.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(15,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(175,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(197,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(219,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(241,23): warning C4018: '<': signed/unsigned mismatch
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29910\include\xutility(138,73): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
@@ -26,11 +24,9 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.
           [
               _Ty=CPlayer
           ]
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(13): message : see reference to function template instantiation 'std::shared_ptr<CPlayer> std::make_shared<CPlayer,const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
-  CPenalty.cpp
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CPenalty.cpp(3,20): warning C4309: 'initializing': truncation of constant value
-  CSquareFactory.cpp
-  CStations.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(31): message : see reference to function template instantiation 'std::shared_ptr<CPlayer> std::make_shared<CPlayer,const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
+  Main.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Main.cpp(6,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(15,22): warning C4309: 'initializing': truncation of constant value
   Generating Code...
-C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CSquareFactory.cpp(57): warning C4715: 'NewSquare': not all control paths return a value
   MONOPOLishAssignment.vcxproj -> C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Debug\MONOPOLishAssignment.exe

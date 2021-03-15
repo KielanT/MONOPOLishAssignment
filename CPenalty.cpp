@@ -77,6 +77,19 @@ bool CPenalty::IsGroupOwned(int group)
 	return false;
 }
 
+void CPenalty::AddOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+void CPenalty::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+vector<shared_ptr<CSquare>> CPenalty::GetOwnedList()
+{
+	return vector<shared_ptr<CSquare>>();
+}
+
 istream& operator>>(istream& inputStream, CPenalty& properties)
 {
 	return inputStream;

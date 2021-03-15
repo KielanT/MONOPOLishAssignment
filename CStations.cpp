@@ -47,6 +47,19 @@ bool CStations::IsGroupOwned(int group)
 	return false;
 }
 
+void CStations::AddOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+void CStations::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+vector<shared_ptr<CSquare>> CStations::GetOwnedList()
+{
+	return vector<shared_ptr<CSquare>>();
+}
+
 istream& operator>>(istream& inputStream, CStations& properties)
 {
 	inputStream >> properties.mSquareStation;

@@ -16,4 +16,4 @@ enum class ESquareType : int
 	FreeParking = 8
 };
 
-unique_ptr<CSquare> NewSquare(ESquareType square, istream& file);
+shared_ptr<CSquare> NewSquare(ESquareType square, istream& file);

@@ -47,6 +47,19 @@ bool CFreeParking::IsGroupOwned(int group)
 	return false;
 }
 
+void CFreeParking::AddOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+void CFreeParking::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+}
+
+vector<shared_ptr<CSquare>> CFreeParking::GetOwnedList()
+{
+	return vector<shared_ptr<CSquare>>();
+}
+
 istream& operator>>(istream& inputStream, CFreeParking& properties)
 {
 	inputStream >> properties.mSquareParking;

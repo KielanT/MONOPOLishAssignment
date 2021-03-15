@@ -1,4 +1,6 @@
 #include "CPlayer.h"
+#include "CSquare.h"
+#include <algorithm>
 
 CPlayer::CPlayer()
 {
@@ -49,4 +51,32 @@ void CPlayer::SetPosition(int position)
 int CPlayer::GetPosition()
 {
 	return mPosition;
+}
+
+void CPlayer::AddOwnedList(shared_ptr<CSquare> owned)
+{
+	mOwnedList.push_back(owned);
+	SortList(mOwnedList);
+}
+
+void CPlayer::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+	for (auto i = 0; i < mOwnedList.size(); ++i)
+	{
+		if (mOwnedList[i]->GetSquareName() == owned->GetSquareName())
+		{
+			mOwnedList.erase(mOwnedList.begin() + i);
+		}
+	}
+	SortList(mOwnedList);
+}
+
+vector<shared_ptr<CSquare>> CPlayer::GetOwnedList()
+{
+	return mOwnedList;
+}
+
+void CPlayer::SortList(vector<shared_ptr<CSquare>> list)
+{
+	sort(list.begin(), list.end()); // Sorts lowest to highest
 }

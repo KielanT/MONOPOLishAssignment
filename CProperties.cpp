@@ -1,4 +1,5 @@
 #include "CProperties.h"
+#include <algorithm>
 
 CProperties::CProperties(istream& file, int type) : CSquare(file)
 {
@@ -53,37 +54,75 @@ int CProperties::GetColourGroup()
 
 void CProperties::SetIsOwned(bool isOwned, int group)
 {
-	if (group == 0)
+	if (isOwned)
 	{
-		mRedGroup++;
+		if (group == 0)
+		{
+			mRedGroup++;
+		}
+		else if (group == 1)
+		{
+			mGreyGroup++;
+		}
+		else if (group == 2)
+		{
+			mBrownGroup++;
+		}
+		else if (group == 3)
+		{
+			mOrangeGroup++;
+		}
+		else if (group == 4)
+		{
+			mYellowGroup++;
+		}
+		else if (group == 5)
+		{
+			mGreenGroup++;
+		}
+		else if (group == 6)
+		{
+			mBlueGroup++;
+		}
+		else if (group == 7)
+		{
+			mBlueGroup++;
+		}
 	}
-	else if (group == 1)
+	else
 	{
-		mGreyGroup++;
-	}
-	else if (group == 2)
-	{
-		mBrownGroup++;
-	}
-	else if (group == 3)
-	{
-		mOrangeGroup++;
-	}
-	else if (group == 4)
-	{
-		mYellowGroup++;
-	}
-	else if (group == 5)
-	{
-		mGreenGroup++;
-	}
-	else if (group == 6)
-	{
-		mBlueGroup++;
-	}
-	else if (group == 7)
-	{
-		mBlueGroup++;
+		if (group == 0)
+		{
+			mRedGroup--;
+		}
+		else if (group == 1)
+		{
+			mGreyGroup++;
+		}
+		else if (group == 2)
+		{
+			mBrownGroup--;
+		}
+		else if (group == 3)
+		{
+			mOrangeGroup--;
+		}
+		else if (group == 4)
+		{
+			mYellowGroup--;
+		}
+		else if (group == 5)
+		{
+			mGreenGroup--;
+		}
+		else if (group == 6)
+		{
+			mBlueGroup--;
+		}
+		else if (group == 7)
+		{
+			mBlueGroup--;
+		}
 	}
 
 	mIsOwned = isOwned;
@@ -94,15 +133,16 @@ bool CProperties::GetIsOwned()
 	return mIsOwned;
 }
 
-void CProperties::SetOwningPlayer(shared_ptr<CPlayer> Player)
+void CProperties::SetOwningPlayer(shared_ptr<CPlayer> player)
 {
-
+	mPlayer = player;
 }
 
 shared_ptr<CPlayer> CProperties::GetOwningPlayer()
 {
-	return shared_ptr<CPlayer>();
+	return mPlayer;
 }
+
 
 bool CProperties::IsGroupOwned(int group)
 {
@@ -142,8 +182,36 @@ bool CProperties::IsGroupOwned(int group)
 	{
 		return false;
 	}
-	
 }
+
+void CProperties::AddOwnedList(shared_ptr<CSquare> owned)
+{
+	mOwnedList.push_back(owned);
+	SortList(mOwnedList);
+}
+
+void CProperties::RemoveOwnedList(shared_ptr<CSquare> owned)
+{
+	for (auto i = 0; i < mOwnedList.size(); ++i)
+	{
+		if (mOwnedList[i]->GetSquareName() == owned->GetSquareName())
+		{
+			mOwnedList.erase(mOwnedList.begin() + i);
+		}
+	}
+	SortList(mOwnedList);
+}
+
+vector<shared_ptr<CSquare>> CProperties::GetOwnedList()
+{
+	return mOwnedList;
+}
+
+void CProperties::SortList(vector<shared_ptr<CSquare>> list)
+{
+	sort(list.begin(), list.end()); // Sorts lowest to highest
+}
+
 
 
 istream& operator>>(istream& inputStream, CProperties& properties)

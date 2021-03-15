@@ -146,6 +146,7 @@
     <ClCompile Include="CJail.cpp" />
     <ClCompile Include="CMonopolyGame.cpp" />
     <ClCompile Include="CPenalty.cpp" />
+    <ClCompile Include="CRandom.cpp" />
     <ClCompile Include="CSquare.cpp" />
     <ClCompile Include="CProperties.cpp" />
     <ClCompile Include="CSquareFactory.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="CJail.h" />
     <ClInclude Include="CMonopolyGame.h" />
     <ClInclude Include="CPenalty.h" />
+    <ClInclude Include="CRandom.h" />
     <ClInclude Include="CSquare.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CProperties.h" />

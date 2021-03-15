@@ -37,6 +37,8 @@ shared_ptr<CPlayer> CSquare::GetOwningPlayer()
 	return mOwningPlayer;
 }
 
+
+
 istream& operator >> (istream& inputStream, CSquare& square)
 {
 	inputStream >> square.mSquareName;

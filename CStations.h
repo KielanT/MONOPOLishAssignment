@@ -18,6 +18,9 @@ public:
 	float GetPenalty(int diceRoll) override;
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
+	void AddOwnedList(shared_ptr<CSquare> owned) override;
+	void RemoveOwnedList(shared_ptr<CSquare> owned) override;
+	vector<shared_ptr<CSquare>> GetOwnedList() override;
 
 	friend istream& operator >> (istream& inputStream, CStations& properties);
 };
