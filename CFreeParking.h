@@ -4,11 +4,11 @@
 
 class CFreeParking : public CSquare
 {
-private:
+private: // Private member variables
 	string mSquareParking;
 	int mSquareType;
 
-public:
+public: // Public functions
 	CFreeParking(istream& file, int type);
 	virtual string GetSquareName() override;
 	float GetSquareCost() override;
@@ -19,6 +19,6 @@ public:
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
 
-	friend istream& operator >> (istream& inputStream, CFreeParking& properties);
+	friend istream& operator >> (istream& inputStream, CFreeParking& properties);  // Friend class operator overload function
 };
 

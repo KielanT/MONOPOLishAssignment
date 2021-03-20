@@ -5,12 +5,12 @@ using namespace std;
 
 class CPlayer
 {
-private:
+private: // Private member varibales
 	string mName;
 	float mMoney;
 	int mPosition;
 
-public:
+public: // Public functions
 	CPlayer();
 	CPlayer(string name, float money, int position);
 	~CPlayer();

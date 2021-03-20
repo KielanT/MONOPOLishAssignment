@@ -29,8 +29,14 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.
 C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.cpp(13): message : see reference to function template instantiation 'std::shared_ptr<CPlayer> std::make_shared<CPlayer,const char(&)[4],int,int>(const char (&)[4],int &&,int &&)' being compiled
   CPenalty.cpp
 C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CPenalty.cpp(3,20): warning C4309: 'initializing': truncation of constant value
+  CPlayer.cpp
+  CProperties.cpp
+  CSquare.cpp
   CSquareFactory.cpp
   CStations.cpp
+  Main.cpp
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Main.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CMonopolyGame.h(14,22): warning C4309: 'initializing': truncation of constant value
   Generating Code...
 C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\CSquareFactory.cpp(57): warning C4715: 'NewSquare': not all control paths return a value
   MONOPOLishAssignment.vcxproj -> C:\Users\kielan\Documents\Year 2 Advanced Programming\Assignment\MONOPOLishAssignment\Debug\MONOPOLishAssignment.exe

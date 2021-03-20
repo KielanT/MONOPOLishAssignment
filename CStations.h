@@ -4,11 +4,11 @@
 
 class CStations :public CSquare
 {
-private:
+private: // Private member types
 	string mSquareStation;
 	int mSquareType;
 
-public:
+public: // Public functions
 	CStations(istream& file, int type);
 	virtual string GetSquareName() override;
 	float GetSquareCost() override;
@@ -19,6 +19,6 @@ public:
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
 
-	friend istream& operator >> (istream& inputStream, CStations& properties);
+	friend istream& operator >> (istream& inputStream, CStations& properties); // Friend class operator overload function
 };
 

@@ -1,44 +1,44 @@
 #include "CJail.h"
 
-CJail::CJail(istream& file, int type) : CSquare(file)
+CJail::CJail(istream& file, int type) : CSquare(file) // Constructor sets file and type
 {
-	file >> *this;
-	mSquareType = type;
+	file >> *this; // Sets the file line to this square
+	mSquareType = type; // Sets the square type
 }
 
-float CJail::GetSquareCost()
+float CJail::GetSquareCost() // Gets square costs 
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property
 }
 
-int CJail::GetSquareType()
+int CJail::GetSquareType() // Gets square type 
 {
-	return mSquareType;
+	return mSquareType; // Returns square type
 }
 
-float CJail::GetSquareRent()
+float CJail::GetSquareRent() // Gets square Rent 
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property
 }
 
-float CJail::GetBonus(int diceRoll)
+float CJail::GetBonus(int diceRoll) // Gets square Bonus 
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a bonus square
 }
 
-float CJail::GetPenalty(int diceRoll)
+float CJail::GetPenalty(int diceRoll) // Gets square penalty 
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a penalty square
 }
 
-int CJail::GetColourGroup()
+int CJail::GetColourGroup() // Gets square colour group 
 {
-	return 0;
+	return 0;  // Returns nothing because it is not a property
 }
 
-bool CJail::IsGroupOwned(int group)
+bool CJail::IsGroupOwned(int group) // Gets is group owned
 {
-	return false;
+	return true; // Returns is true because it is not a group
 }
 
 istream& operator>>(istream& inputStream, CJail& properties)

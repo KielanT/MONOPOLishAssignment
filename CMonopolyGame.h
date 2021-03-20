@@ -9,17 +9,17 @@
 
 class CMonopolyGame
 {
-private:
-	typedef vector<unique_ptr<CSquare>> CSquareVector;
+private: // Private Member variables
+	typedef vector<unique_ptr<CSquare>> CSquareVector; // Creates a neater definition for a vector of type csquare unique pointer
 	const char mPOUND = 156;
 	const string mFILE_SQUARES = "monopoly.txt"; // Used for storing the file that stores the square data
 	CSquareVector pSquares;
 
-public:
+public: // Public functions
 	CMonopolyGame();
 	void Game();
 
-private:
+private: // Private functions
 	void Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherPlayer, CSquareVector& squares);
 	void GameOver(shared_ptr<CPlayer> PlayerOne, shared_ptr<CPlayer> PlayerTwo);
 	void ReadSquaresFile(string fileName, CSquareVector& squares);

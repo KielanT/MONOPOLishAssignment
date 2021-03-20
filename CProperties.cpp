@@ -1,10 +1,11 @@
 #include "CProperties.h"
 
-CProperties::CProperties(istream& file, int type) : CSquare(file)
+CProperties::CProperties(istream& file, int type) : CSquare(file) // Constuctor that sets file and type
 {
-	file >> *this;
-	mSquareType = type;
+	file >> *this; // Sets the file line to this square
+	mSquareType = type; // Sets the type
 
+	// Initialises the colour groups
 	mRedGroup = 0;
 	mGreyGroup = 0;
 	mBrownGroup = 0;
@@ -15,44 +16,45 @@ CProperties::CProperties(istream& file, int type) : CSquare(file)
 	mPurpleGroup = 0;
 }
 
-string CProperties::GetSquareName()
+string CProperties::GetSquareName() // Gets Square Name
 {
-	string name = mSquareName + " " + mSquareStreetName;
-	return name;
+	string name = mSquareName + " " + mSquareStreetName; // Joins the two names
+	return name; // Returns the name
 }
 
-float CProperties::GetSquareCost()
+float CProperties::GetSquareCost() // Gets the square cost
 {
-	return mSquareCost;
+	return mSquareCost; // Returns the square cost
 }
 
-int CProperties::GetSquareType()
+int CProperties::GetSquareType() // Get the square type
 {
-	return mSquareType;
+	return mSquareType; // Returns the square type
 }
 
-float CProperties::GetSquareRent()
+float CProperties::GetSquareRent() // Gets the squares rent
 {
-	return mSquareRent;
+	return mSquareRent; // Returns the squares rent
 }
 
-float CProperties::GetBonus(int diceRoll)
+float CProperties::GetBonus(int diceRoll) // Gets bonus
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because this square is not a bonus square
 }
 
-float CProperties::GetPenalty(int diceRoll)
+float CProperties::GetPenalty(int diceRoll) // Gets penalty
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because this square is not a penalty square
 }
 
-int CProperties::GetColourGroup()
+int CProperties::GetColourGroup() // Gets colour Group
 {
-	return mSquareGroup;
+	return mSquareGroup; // Returns colour group
 }
 
-void CProperties::SetIsOwned(bool isOwned, int group)
+void CProperties::SetIsOwned(bool isOwned, int group) // Set is Owned 
 {
+	// Increments square colour group depening on the group type
 	if (group == 0)
 	{
 		mRedGroup++;
@@ -86,26 +88,28 @@ void CProperties::SetIsOwned(bool isOwned, int group)
 		mBlueGroup++;
 	}
 
-	mIsOwned = isOwned;
+	mIsOwned = isOwned; // Sets is owned
 }
 
-bool CProperties::GetIsOwned()
-{
-	return mIsOwned;
+bool CProperties::GetIsOwned() // Gets is owned
+{ 
+	return mIsOwned; // Returns is owned
 }
 
-void CProperties::SetOwningPlayer(shared_ptr<CPlayer> Player)
+void CProperties::SetOwningPlayer(shared_ptr<CPlayer> Player) // Sets owner
 {
-
+	mOwningPlayer = Player; // Sets owning variable
 }
 
-shared_ptr<CPlayer> CProperties::GetOwningPlayer()
+shared_ptr<CPlayer> CProperties::GetOwningPlayer() // Gets owning player
 {
-	return shared_ptr<CPlayer>();
+	return mOwningPlayer; // Returns owning player
 }
 
-bool CProperties::IsGroupOwned(int group)
+bool CProperties::IsGroupOwned(int group) // Checks if the group is owned
 {
+	// Returns true if all squares in a group is owned 
+
 	if (mRedGroup >= 2)
 	{
 		return true;
@@ -146,12 +150,12 @@ bool CProperties::IsGroupOwned(int group)
 }
 
 
-istream& operator>>(istream& inputStream, CProperties& properties)
+istream& operator>>(istream& inputStream, CProperties& properties) // Reads in the file and sets its properties
 {
-	inputStream >> properties.mSquareStreetName;
-	inputStream >> properties.mSquareCost;
-	inputStream >> properties.mSquareRent;
-	inputStream >> properties.mSquareGroup;
+	inputStream >> properties.mSquareStreetName; // Sets the second part of the name
+	inputStream >> properties.mSquareCost; // Sets the square cost
+	inputStream >> properties.mSquareRent; // Sets square rent
+	inputStream >> properties.mSquareGroup; // Sets the square group
 
-	return inputStream;
+	return inputStream; // Returns the file
 }

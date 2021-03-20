@@ -2,33 +2,32 @@
 
 const char POUND = 156;
 
-CBonus::CBonus(istream& file, int type) : CSquare(file)
+CBonus::CBonus(istream& file, int type) : CSquare(file) // Constructor that takes in file and type
 {
-	file >> *this;
-	mSquareType = type;
+	file >> *this; // Sets file line to this square
+	mSquareType = type; // Sets square type
 }
 
-float CBonus::GetSquareCost()
+float CBonus::GetSquareCost() // Gets square cost
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property square
 }
 
-int CBonus::GetSquareType()
+int CBonus::GetSquareType() // Gets square type
 {
-
-	return mSquareType;
+	return mSquareType; // Returns square type
 }
 
-float CBonus::GetSquareRent()
+float CBonus::GetSquareRent() // Gets square rent
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property square
 }
 
-float CBonus::GetBonus(int diceRoll)
+float CBonus::GetBonus(int diceRoll) // Gets the bonus
 {
+	float price = 0.0f; // Declares prices
 	
-	float price = 0.0f;
-	
+	// Sets penalty and penalty price depending on dice roll
 	if (diceRoll == 1)
 	{
 		cout << "Find some money.  	Gain " << POUND << "20" << endl;
@@ -61,23 +60,23 @@ float CBonus::GetBonus(int diceRoll)
 	}
 	
 	
-	return price;
+	return price; // Retruns price
 	
 }
 
-float CBonus::GetPenalty(int diceRoll)
+float CBonus::GetPenalty(int diceRoll) // Get penalty
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a penalty square
 }
 
-int CBonus::GetColourGroup()
+int CBonus::GetColourGroup() // Gets colour group
 {
-	return 0;
+	return 0; // Returns nothing because it is not a property square
 }
 
-bool CBonus::IsGroupOwned(int group)
+bool CBonus::IsGroupOwned(int group) // Gets is grouped owned
 {
-	return false;
+	return true; // Returns truth because square cannot be owned by a player
 }
 
 istream& operator>>(istream& inputStream, CBonus& properties)

@@ -2,10 +2,10 @@
 
 CMonopolyGame::CMonopolyGame()
 {
-	ReadSquaresFile(mFILE_SQUARES, pSquares);
+	ReadSquaresFile(mFILE_SQUARES, pSquares); // Reads file and sets the squares
 }
 
-void CMonopolyGame::Game()
+void CMonopolyGame::Game() // Used for running the game
 {
 	cout << "Welcome to Monopol-ish" << endl << endl; // Title Text
 
@@ -23,7 +23,7 @@ void CMonopolyGame::Game()
 		Round(pPlayerTwo, pPlayerOne, pSquares);
 	}
 
-	GameOver(pPlayerOne, pPlayerTwo);
+	GameOver(pPlayerOne, pPlayerTwo); // Calls game over function
 }
 
 void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherPlayer, CSquareVector& squares)
@@ -70,7 +70,6 @@ void CMonopolyGame::Round(shared_ptr<CPlayer> Player, shared_ptr<CPlayer> OtherP
 		/*output <player> pays <rent> */
 		if (squares[Player->GetPosition()]->GetIsOwned() && squares[Player->GetPosition()]->GetOwningPlayer() != Player)
 		{
-			
 			if (squares[Player->GetPosition()]->GetSquareType() == 3) // If landed on square then brought ticket
 			{
 				OtherPlayer->SetMoney(OtherPlayer->GetMoney() + 10.0f); 

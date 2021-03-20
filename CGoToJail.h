@@ -20,6 +20,6 @@ public:
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
 
-	friend istream& operator >> (istream& inputStream, CGoToJail& properties);
+	friend istream& operator >> (istream& inputStream, CGoToJail& properties);  // Friend class operator overload function
 };
 

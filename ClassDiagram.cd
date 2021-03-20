@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="CBonus">
+    <Position X="1.25" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQAAAAAAAACACAgAAAEAACAAAEAAAAAAAAAEA=</HashCode>
+      <FileName>CBonus.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CFreeParking">
+    <Position X="6.75" Y="7" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQAAgAAAAACACAiAAAEAACAAAEAAAAAAAACAA=</HashCode>
+      <FileName>CFreeParking.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CGo">
+    <Position X="13.5" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAQAAAAAAAACACAgAAAEAACAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>CGo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CGoToJail">
+    <Position X="19" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAgQAAgAAAAACACAgAAAEAICAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>CGoToJail.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CJail">
+    <Position X="4" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQAAAAAAAACACAgAAAEAACAAAEAAAAAAQAAAA=</HashCode>
+      <FileName>CJail.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMonopolyGame">
+    <Position X="16.5" Y="0.5" Width="6.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="CMonopolyGame::CSquareVector" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>CMonopolyGame.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>FAgAgAAAAAAAAAAAAAIAAAAAAAgAAAACAAAAAAIAAAA=</HashCode>
+      <FileName>CMonopolyGame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPenalty">
+    <Position X="16.25" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAgQAAAAAAAACACAgAAAEAACAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>CPenalty.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSquare">
+    <Position X="10.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAIAASADgAAAAACACAoAACEAACAgCAAAAAAEAAAAA=</HashCode>
+      <FileName>CSquare.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPlayer">
+    <Position X="23.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAACCAAAAAAAAAAAAAAAAgAhAAAAkAQAAABgA=</HashCode>
+      <FileName>CPlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CProperties">
+    <Position X="9.75" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIJAEQAQgACQAAKACCoAACMBACggAFAAAAAAAAACA=</HashCode>
+      <FileName>CProperties.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CStations">
+    <Position X="21.75" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQEAgAAAAAGACAgAAAEAACAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>CStations.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ESquareType">
+    <Position X="14.75" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAEAAAAAAAEgAAAAAAAAAAAAGCgAA=</HashCode>
+      <FileName>CSquareFactory.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

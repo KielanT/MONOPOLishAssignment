@@ -4,10 +4,10 @@
 
 class CGo : public CSquare
 {
-private:
+private: // Private member variables
 	int mSquareType;
 
-public:
+public: // Public functions
 	CGo(istream& file, int type);
 	float GetSquareCost() override;
 	int GetSquareType() override;
@@ -17,6 +17,6 @@ public:
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
 
-	friend istream& operator >> (istream& inputStream, CGo& properties);
+	friend istream& operator >> (istream& inputStream, CGo& properties);  // Friend class operator overload function
 };
 

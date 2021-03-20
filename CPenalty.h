@@ -4,9 +4,9 @@
 
 class CPenalty : public CSquare
 {
-private:
+private: // Private variables
 	int mSquareType;
-public:
+public: // Public functions
 	CPenalty(istream& file, int type);
 	float GetSquareCost() override;
 	int GetSquareType() override;
@@ -16,6 +16,6 @@ public:
 	int GetColourGroup() override;
 	bool IsGroupOwned(int group) override;
 
-	friend istream& operator >> (istream& inputStream, CPenalty& properties);
+	friend istream& operator >> (istream& inputStream, CPenalty& properties);  // Friend class operator overload function
 };
 

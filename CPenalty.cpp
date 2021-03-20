@@ -1,37 +1,38 @@
 #include "CPenalty.h"
 
-const char POUND = 156;
+const char POUND = 156; // Constant with the char number for a Pound (£) symbol
 
-CPenalty::CPenalty(istream& file, int type) : CSquare(file)
+CPenalty::CPenalty(istream& file, int type) : CSquare(file) // Constuctor that sets file and type
 {
-	file >> *this;
-	mSquareType = type;
+	file >> *this; // Sets the file line to this square
+	mSquareType = type; // Sets the square type
 }
 
-float CPenalty::GetSquareCost()
+float CPenalty::GetSquareCost() // Gets square cost
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property square
 }
 
-int CPenalty::GetSquareType()
+int CPenalty::GetSquareType() // Gets square type
 {
-	return mSquareType;
+	return mSquareType; // Returns square type
 }
 
-float CPenalty::GetSquareRent()
+float CPenalty::GetSquareRent() // Gets square cost
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a property square
 }
 
-float CPenalty::GetBonus(int diceRoll)
+float CPenalty::GetBonus(int diceRoll) // Gets the bonus
 {
-	return 0.0f;
+	return 0.0f; // Returns nothing because it is not a bonus square
 }
 
-float CPenalty::GetPenalty(int diceRoll)
+float CPenalty::GetPenalty(int diceRoll) // Gets penalty
 {
-	float price = 0.0f;
+	float price = 0.0f; // Delcares price variable
 
+	// Sets the penalty and price depending on dice roll
 	if (diceRoll == 1)
 	{
 		cout << "Buy a coffee in Starbucks.  	Lose " << POUND << "20" << endl;
@@ -64,17 +65,17 @@ float CPenalty::GetPenalty(int diceRoll)
 	}
 
 
-	return price;
+	return price; // Returns price
 }
 
-int CPenalty::GetColourGroup()
+int CPenalty::GetColourGroup() // Get colour group
 {
-	return 0;
+	return 0; // Returns nothing because it does not have a colour group
 }
 
-bool CPenalty::IsGroupOwned(int group)
+bool CPenalty::IsGroupOwned(int group) // Gets is owned
 {
-	return false;
+	return true; // Returns true because it is not a propery square
 }
 
 istream& operator>>(istream& inputStream, CPenalty& properties)
